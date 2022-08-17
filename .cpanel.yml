@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/conibgrz/app.conichomesandproperties.com/
-    - /bin/cp -R app $DEPLOYPATH
+    - export DEPLOYPATH=/home/kion16295365/public_html/
+    - /bin/cp -R admin $DEPLOYPATH
+    - /bin/cp -R home $DEPLOYPATH
