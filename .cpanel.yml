@@ -4,3 +4,4 @@ deployment:
     - export DEPLOYPATH=/home/kion16295365/public_html/
     - /bin/cp -R admin $DEPLOYPATH
     - /bin/cp -R home $DEPLOYPATH
+    - /bin/cp -R includes $DEPLOYPATH
