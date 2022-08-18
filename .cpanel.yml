@@ -7,3 +7,4 @@ deployment:
     - /bin/cp -R includes $DEPLOYPATH
     - /bin/cp -R signup $DEPLOYPATH
     - /bin/cp -R login $DEPLOYPATH
+    - /bin/cp -R contact.php $DEPLOYPATH

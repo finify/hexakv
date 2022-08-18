@@ -16,18 +16,20 @@ function sanitize($dirty){
 if(isset($_POST['submit'])){
 
    echo "hello";
-   $user_name = sanitize($_POST['user_name']);
-   $user_email = sanitize($_POST['user_email']);
-   $user_phone_number = sanitize($_POST['user_phone_number']);
-   $user_message = sanitize($_POST['user_message']);
+   // $user_name = sanitize($_POST['user_name']);
+   // $user_email = sanitize($_POST['user_email']);
+   // $user_phone_number = sanitize($_POST['user_phone_number']);
+   // $user_message = sanitize($_POST['user_message']);
 
-   $created = date("d-m-Y");
+   // $created = date("d-m-Y");
 
-   $query1 = "INSERT  into `fx_contact` 
-      (username,useremail,userphonenumber,usermessage,created)
-      VALUES 
-      ('$user_name','$user_email','$user_phone_number','$user_message','$created')";
-      $result1 = mysqli_query($con,$query1);
+   // $query1 = "INSERT  into `fx_contact` 
+   //    (username,useremail,userphonenumber,usermessage,created)
+   //    VALUES 
+   //    ('$user_name','$user_email','$user_phone_number','$user_message','$created')";
+   //    $result1 = mysqli_query($con,$query1);
+
+   $result1 = true;
 
 }
 

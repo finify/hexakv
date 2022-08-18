@@ -546,7 +546,7 @@ include('includes/header.php');
                   </div>
                </div>
                 <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                  <img src="kionivestcertificate.png" width="100%" alt="">
+                  <img src="kionvestcertificate.png" width="100%" alt="">
                </div>
             </div>
          </div>
