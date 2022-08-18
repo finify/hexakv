@@ -137,8 +137,8 @@ $userid =$row['ID'];
                 <div class="col-lg-6">
                   <div class="form-group">
                     <h3>Your balance is $<?=$userbalance?></h3>
-                    <label style="font-size:25px;" class="form-control-label" for="input-username"
-                      >Choose payment method</label
+                    <label style="font-size:20px;" class="form-control-label" for="input-username"
+                      >Choose Plan</label
                     >
                     <select required name="plan_name" class="custom-select" id="inputGroupSelect02">
                     <?php

@@ -9,8 +9,19 @@ if(isset($_POST['delete'])){
   
   $depositid = $_POST['depositid'];
 
-  $sqlquery14 = "DELETE FROM fx_deposit WHERE id='$depositid' " ;
-  $sqlresult14 = mysqli_query($con,$sqlquery14) ;
+  //Selecting current user 
+  $query = "SELECT * FROM `fx_deposit` WHERE ID='$depositid' ";
+  $result = mysqli_query($con,$query) ;
+  $row2 = mysqli_fetch_array($result);
+  $investmentid =$row2['investmentid'];
+
+  if($investmentid != ""){
+    $sqlquery1 = "DELETE FROM fx_investment WHERE id='$investmentid' " ;
+    $sqlresult1 = mysqli_query($con,$sqlquery1) ;
+  }
+
+  $sqlquery2 = "DELETE FROM fx_deposit WHERE id='$depositid' " ;
+  $sqlresult2 = mysqli_query($con,$sqlquery2) ;
  
 }
 
@@ -55,7 +66,7 @@ $rows1 = mysqli_num_rows($sql1) ;
           <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for deposits..">
           <?php
                         if(isset($_POST["delete"])){
-                          if($sqlresult14){
+                          if($sqlresult1 or $sqlresult2){
                             echo "
                             <div class='alert alert-success alert-dismissible' role='alert'>
                             Deposit was deleted successfully!
@@ -97,6 +108,7 @@ $rows1 = mysqli_num_rows($sql1) ;
                       while($row11 = mysqli_fetch_array($sql1)){
                         $userid =$row11["userid"];
                         $depositid =$row11["ID"];
+                        $investmentid =$row11["investmentid"];
                         $amount =$row11["amount"];
                         $created =$row11["createdat"];
                         $proofimage =$row11["proofimage"];
@@ -148,12 +160,13 @@ $rows1 = mysqli_num_rows($sql1) ;
                                 <input type='hidden' value='$gatewayamount'  name='gatewayamount'/>
                                 <input type='hidden' value='$proofimage'  name='proofimage'/>
                                 <input type='hidden' value='$amount'  name='usdamount'/>
+                                <input type='hidden' value='$investmentid'  name='investmentid'/>
                                 <input class='dropdown-item btn btn-primary btn-sm' type='submit' value='view'></input>
                               </form>
                               <form method='POST' action=''>
                                   <input type='hidden' value='$depositid'  name='depositid'/>
                                   
-                                  <input onclick=\"return confirm('Are you sure you want to delete candidate?');\" class='dropdown-item btn btn-danger' type='submit' name='delete' value='Delete'></input>
+                                  <input onclick=\"return confirm('Are you sure you want to delete deposit?');\" class='dropdown-item btn btn-danger' type='submit' name='delete' value='Delete'></input>
                               </form>
                             </div>
                           </div>

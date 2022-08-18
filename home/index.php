@@ -196,6 +196,11 @@ $rows1 = mysqli_num_rows($sql5) ;
                           <i class='bg-default'></i>
                           <span class='status'>ACTIVE</span>
                         </span>";
+                        }elseif($plan_status == 3){
+                          $plan_status = "<span class='bg-default badge badge-dot p-2'>
+                          <i class='bg-primary'></i>
+                          <span class='status'>PENDING</span>
+                        </span>";
                         }else{
                           $plan_status = "<span class='bg-danger badge badge-dot p-2'>
                           <i class='bg-primary'></i>

@@ -5,6 +5,7 @@ require('includes/nav.php');
 require('../includes/dbconnect.php');//DBCONNECTION
 $useremail = $_SESSION['fx_adminemail']; 
 
+//kyc activation and deactivation
 if(isset($_POST['submit2'])){
 
     $kyc = $_POST['kyc'] ;
@@ -22,7 +23,26 @@ if(isset($_POST['submit2'])){
     }
     
   }
-//Selecting current user 
+
+//updating deposit type
+if(isset($_POST['submit4'])){
+
+    $deposit_type = $_POST['deposit_type'] ;
+
+    if($deposit_type == 1){
+        $sqlquery = "UPDATE fx_settings 
+          SET deposit_type='0'
+          WHERE ID='1' " ;						
+          $sqlresult = mysqli_query($con,$sqlquery) ;
+    }else{
+       $sqlquery = "UPDATE fx_settings 
+          SET deposit_type='1'
+          WHERE ID='1' " ;						
+          $sqlresult = mysqli_query($con,$sqlquery) ; 
+    }
+    
+  }
+//Selecting settings
 $query = "SELECT * FROM `fx_settings` WHERE ID='1' ";
 $result = mysqli_query($con,$query) ;
 $row = mysqli_fetch_array($result);
@@ -32,6 +52,7 @@ $location =$row['location'];
 $email =$row['email'];
 
 $kyc =$row['kyc'];
+$deposit_type =$row['deposit_type'];
 
 
 
@@ -250,6 +271,41 @@ $userpassword =$row['userpassword'];
                     <div class="col-lg-12">
                         <input
                         name="submit2"
+                        type="submit"
+                        id="submit1"
+                        class="form-control btn btn-primary my-4"
+                        value="Activate / Deactivate"
+                        />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form method="POST" action="">
+            <div class="pl-lg-4">
+            
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-username"
+                        >Activate/Deactivate Deposit procedure</label
+                        ></br>
+                        <?php 
+                        if($deposit_type == 0){
+                            echo '<b style="color:green; font-style:bold; font-size:20px">Manually invest after deposit</b>';
+                        }else{
+                            echo '<b style="color:gray; font-style:bold; font-size:20px">Invest during deposit</b>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <input name="deposit_type" type="hidden" value="<?php echo $deposit_type?>"/>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input
+                        name="submit4"
                         type="submit"
                         id="submit1"
                         class="form-control btn btn-primary my-4"
