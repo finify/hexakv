@@ -54,17 +54,17 @@ if(!isset($_GET['refcode'])){
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<input id="newinput" placeholder="btc wallet" id="confirm_userpass" required name="btc" type="text" class="validate">
+			<input id="newinput" placeholder="btc wallet" id="confirm_userpass" name="btc" type="text" class="validate">
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<input id="newinput" placeholder="eth wallet" id="confirm_userpass" required name="eth" type="text" class="validate">
+			<input id="newinput" placeholder="eth wallet" id="confirm_userpass" name="eth" type="text" class="validate">
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<input id="newinput" placeholder="usdt wallet" id="confirm_userpass" required name="usdt" type="text" class="validate">
+			<input id="newinput" placeholder="usdt wallet" id="confirm_userpass" name="usdt" type="text" class="validate">
 		</div>
 	</div>
 	<div class="row">
