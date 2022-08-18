@@ -115,8 +115,8 @@ $sql1 = mysqli_query($con, "SELECT * FROM `fx_plan_category` order by category_o
                 <div class="col-lg-6">
                   <div class="form-group">
                     
-                    <label style="font-size:25px;" class="form-control-label" for="input-username"
-                      >Choose payment method</label
+                    <label style="font-size:20px;" class="form-control-label" for="input-username"
+                      >Choose investment plan</label
                     >
                     <select required name="plan_name" class="custom-select" id="inputGroupSelect02">
                     <?php
