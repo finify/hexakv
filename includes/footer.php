@@ -95,7 +95,7 @@ $email =$row['email'];
             <div class="row">
                <div class="col-md-12">
                   <div class="full">
-                     <p>Copyright © 2022 Kionvest. All Rights Reserved.</p>
+                     <p>Kionvest. All Rights Reserved.</p>
                   </div>
                </div>
             </div>
