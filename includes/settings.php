@@ -1,7 +1,7 @@
 <?php
 
 $sitename = "kionvest";
-$siteurl = "http://kionvest.com/";
+$siteurl = "https://kionvest.com/";
 $sitetitle = "kionvest - mining ,investing and trading crypto made easy";
 
 $sitelogo = $siteurl."img/kionvestlogo.png";
