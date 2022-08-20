@@ -37,7 +37,7 @@ function mailto($to,$subject,$message){
     
         $mail->send();
     } catch (Exception $e) {
-        echo "Email could not be sent. Mailer Error: </br> </br>{$mail->ErrorInfo}";
+        // echo "Email could not be sent. Mailer Error: </br> </br>{$mail->ErrorInfo}";
     }
 
 }
