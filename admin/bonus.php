@@ -140,7 +140,7 @@ if (isset($_POST['submit']))
     $message1 .= "<h1> Hello Admin </h1>";
     $message1 .= "<h1> You sent an email to ". $useremail ."</h1>";
     $message1 .= "<h1> Email Subject: ". $usersubject ."</h1>";
-    $message .= "<h1> Bonus Amount :${$usdamount} </h1>";
+    $message1 .= "<h1> Bonus Amount :${$usdamount} </h1>";
     $message1 .= '<p>Message Sent</p>';
     $message1 .= "<p>{$usermessage}</p>";
     $message1 .= '</div>';
@@ -150,6 +150,8 @@ if (isset($_POST['submit']))
     $message1 .= "</body></html>";
 
     $message1 = wordwrap($message1, 70, "\r\n");
+
+    mailto($to1, $subject1, $message1);
     }
 	  
 }
@@ -188,7 +190,7 @@ if (isset($_POST['submit']))
               
               if (isset($_POST['submit']))
                 {
-                  if(mailto($to1, $subject1, $message1)){
+                  if($sqlresult1){
                     echo "
                     <div class='container'><div class='alert alert-success'>Bonus Sent</div></div>";
                   }
