@@ -110,6 +110,17 @@ if(isset($_POST["submit"])){
 $sql4 = mysqli_query($con, "SELECT * FROM `fx_withdrawal` WHERE userid='$userid'");
 $rows = mysqli_num_rows($sql4) ;
 
+//Selecting current user 
+$query = "SELECT * FROM `fx_userprofile` WHERE email='$useremail' ";
+$result = mysqli_query($con,$query) ;
+$row = mysqli_fetch_array($result);
+$userbalance =$row['balance'];
+$userid =$row['ID'];
+$firstname =$row['firstname'];
+$lastname =$row['lastname'];
+$useremail =$row['email'];
+$withdraw_balance =$row['withdraw_balance'];
+
 ?>
 <!-- Header -->
 <div class="header pb-6"  style="background-color:#288FDD;">
@@ -159,16 +170,14 @@ $rows = mysqli_num_rows($sql4) ;
             else {?>
                   <div class='container'><div class='alert alert-danger'> Error occured while trying to make your investment please try again</div></div>
             <?php }
-          }elseif($usdamount > 20000){?>
-            <div class='container'><div class='alert alert-danger'>You can not withdraw more than 20000usd in a day</div></div>
-          <?php }else{?>
+          }else{?>
             <div class='container'><div class='alert alert-danger'>Please choose a valid amount</div></div>
           <?php }
         }
           ?>
           <form method="POST" action="">
             <h2 class="h2 text-default mb-4">
-              Your Balance = <?php echo $withdraw_balance ; ?>
+              Your Balance = $<?php echo number_format($withdraw_balance) ; ?>
             </h2>
             <div class="pl-lg-4">
               <div class="row">

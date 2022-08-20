@@ -16,7 +16,4 @@ $location = "";
 
 $referral_commision = '10';
 
-
-
-
 ?>

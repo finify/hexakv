@@ -8,3 +8,4 @@ deployment:
     - /bin/cp -R signup $DEPLOYPATH
     - /bin/cp -R login $DEPLOYPATH
     - /bin/cp -R contact.php $DEPLOYPATH
+    - /bin/cp -R index.php $DEPLOYPATH

@@ -1,5 +1,11 @@
 <?php
 include('includes/header.php');
+
+if(!isset($_GET['refcode'])){
+	$refercode = '';
+}else{
+   $_SESSION['refcode'] = $_GET['refcode'];
+}
 ?>
       <!-- slider -->
       <div id="demo" class="carousel slide" data-ride="carousel">

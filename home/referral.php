@@ -54,7 +54,7 @@ $rows1 = mysqli_num_rows($sql1) ;
               <h4
                 class="card-title text-center text-white font-style-arial mb-0"
               >
-                <?= $siteurl ?>signup/index.php?refcode=<?php echo $userrefcode;?>
+                <?= $siteurl ?>index.php?refcode=<?php echo $userrefcode;?>
               </h4>
             </div>
           </div>

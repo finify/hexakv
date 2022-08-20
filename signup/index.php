@@ -4,17 +4,25 @@ if(isset($_SESSION["username"])){
 	header("Location: ../home");
 	exit(); 
 }
+
+if(isset($_SESSION["refcode"])){
+	$refercode = $_SESSION["refcode"];
+}else{
+	$refercode = '';
+}
+
+// if(!isset($_GET['refcode'])){
+// 	$refercode = '';
+// }else{
+// 	$refercode = $_GET['refcode'];
+// }
 require('../includes/dbconnect.php');
 require('../includes/settings.php');
 require('../includes/mail.php');
 
 
 
-if(!isset($_GET['refcode'])){
-	$refercode = '';
-}else{
-	$refercode = $_GET['refcode'];
-}
+
 //complete form
 
 	$error='';
@@ -175,9 +183,9 @@ if (isset($_REQUEST['firstname']))
 		if($userpassword == $confirm_userpassword){
 				//insert into userprofile//
 			$query1 = "INSERT  into `fx_userprofile` 
-			(username,firstname,lastname,email,btc,eth,usdt,userpassword,refcode,reffereeid,balance,created)
+			(username,firstname,lastname,email,btc,eth,usdt,userpassword,refcode,reffereeid,balance,withdraw_balance,created)
 			VALUES 
-			('$username','$firstname','$lastname','$Email','$btc','$eth','$usdt','$userpassword','$userrefcode','$refcode','$balance','$created')";
+			('$username','$firstname','$lastname','$Email','$btc','$eth','$usdt','$userpassword','$userrefcode','$refcode','$balance','$balance','$created')";
 			$result1 = mysqli_query($con,$query1);
 			if($result1)
 			{ 

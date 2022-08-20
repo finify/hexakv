@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('settings.php');
 require('includes/dbconnect.php');//DBCONNECTION
 ?>
