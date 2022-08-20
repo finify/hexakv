@@ -115,11 +115,6 @@ $query = "SELECT * FROM `fx_userprofile` WHERE email='$useremail' ";
 $result = mysqli_query($con,$query) ;
 $row = mysqli_fetch_array($result);
 $userbalance =$row['balance'];
-$userid =$row['ID'];
-$firstname =$row['firstname'];
-$lastname =$row['lastname'];
-$useremail =$row['email'];
-$withdraw_balance =$row['withdraw_balance'];
 
 ?>
 <!-- Header -->
