@@ -14,6 +14,9 @@ $userid =$row['ID'];
 $userfirstname =$row['firstname'];
 $userlastname =$row['lastname'];
 $useremail =$row['email'];
+$btc =$row['btc'];
+$eth =$row['eth'];
+$usdt =$row['usdt'];
 
 if(isset($_POST['submit'])){
 
@@ -26,8 +29,17 @@ if(isset($_POST['submit'])){
   $userlastname = stripslashes($_POST['userlastname']);
 	$userlastname = mysqli_real_escape_string($con,$userlastname);
 
+  $btc = stripslashes($_POST['btc']);
+	$btc = mysqli_real_escape_string($con,$btc);
+
+  $eth = stripslashes($_POST['eth']);
+	$eth = mysqli_real_escape_string($con,$eth);
+
+  $usdt = stripslashes($_POST['usdt']);
+	$usdt = mysqli_real_escape_string($con,$usdt);
+
   $sqlquery = "UPDATE fx_userprofile 
-	SET firstname='$userfirstname',lastname='$userlastname',email='$useremail'
+	SET firstname='$userfirstname',lastname='$userlastname',email='$useremail',btc='$btc',eth='$eth',usdt='$usdt'
 	WHERE ID='$userid' " ;						
 	$sqlresult = mysqli_query($con,$sqlquery) ;
 
@@ -124,7 +136,30 @@ if(isset($_POST['submit'])){
                         <input required type="text" id="input-first-name" class="form-control"  placeholder="Email" name="useremail" value="<?php echo $useremail?>">
                       </div>
                     </div>
-                    
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Btc wallet</label>
+                        <input required type="text" id="input-username" class="form-control" placeholder="btc wallet" name="btc" value="<?php echo $btc?>">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Eth wallet</label>
+                        <input required type="text" id="input-email" class="form-control" placeholder="eth wallet" name="eth" value="<?php echo $eth?>">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Usdt wallet</label>
+                        <input required type="text" id="input-username" class="form-control" placeholder="Usdt wallet" name="usdt" value="<?php echo $usdt?>">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-lg-12">
                         <div class="text-right">
                             <input type="submit" id="submit1" class="form-control btn bg-gradient-danger text-white my-4" name="submit" value="Update changes">

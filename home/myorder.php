@@ -15,7 +15,7 @@ $userbalance =$row['balance'];
 $userid =$row['ID'];
 
  
-$sql4 = mysqli_query($con, "SELECT * FROM `fx_deposit` WHERE userid='$userid'");
+$sql4 = mysqli_query($con, "SELECT * FROM `fx_deposit` WHERE userid='$userid' order by ID desc");
 $rows = mysqli_num_rows($sql4) ;
 ?>
 <!-- Header -->

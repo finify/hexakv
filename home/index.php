@@ -40,7 +40,7 @@ while($row3 = mysqli_fetch_array($sql3)){
 	$total_amount_earned+= $row3['amount_earned'] ;
 }
 
-$sql4 = mysqli_query($con, "SELECT * FROM `fx_investment` WHERE userid='$userid'");
+$sql4 = mysqli_query($con, "SELECT * FROM `fx_investment` WHERE userid='$userid' order by ID desc");
 $rows = mysqli_num_rows($sql4) ;
 
 $sql5 = mysqli_query($con, "SELECT * FROM `fx_notification` WHERE userid='$userid' order by ID desc");
@@ -76,7 +76,7 @@ $rows1 = mysqli_num_rows($sql5) ;
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Wallet Balance</h5>
-                      <span class="h2 font-weight-bold mb-0">$<?php echo $userbalance;?></span>
+                      <span class="h2 font-weight-bold mb-0">$<?php echo number_format($userbalance);?></span>
                     </div>
                     
                     <a href="deposit.php" style="margin-top:10px;" class="btn mt-10 btn-block btn-sm bg-gradient-danger text-white">Make a Deposit</a>
@@ -91,7 +91,7 @@ $rows1 = mysqli_num_rows($sql5) ;
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Total Earnings</h5>
-                      <span class="h3 font-weight-bold mb-0">$<?php echo $total_amount_earned; ?></span>
+                      <span class="h3 font-weight-bold mb-0">$<?php echo number_format($total_amount_earned); ?></span>
                     </div>
                     <!--<div class="col-auto">-->
                     <!--  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">-->
@@ -110,7 +110,7 @@ $rows1 = mysqli_num_rows($sql5) ;
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Withdrawable Balance</h5>
-                      <span class="h2 font-weight-bold mb-0"><?php echo $withdraw_balance ; ?></span>
+                      <span class="h2 font-weight-bold mb-0">$<?php echo number_format($withdraw_balance) ; ?></span>
                     </div>
                     <!--<div class="col-auto">-->
                     <!--  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">-->
@@ -129,7 +129,7 @@ $rows1 = mysqli_num_rows($sql5) ;
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Total Invested in USD</h5>
-                      <span class="h3 font-weight-bold mb-0">$<?php echo $amount_invested; ?></span>
+                      <span class="h3 font-weight-bold mb-0">$<?php echo number_format($amount_invested); ?></span>
                     </div>
                     <!--<div class="col-auto">-->
                     <!--  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">-->

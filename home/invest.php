@@ -11,6 +11,7 @@ $query = "SELECT * FROM `fx_userprofile` WHERE email='$useremail' ";
 $result = mysqli_query($con,$query) ;
 $row = mysqli_fetch_array($result);
 $userbalance =$row['balance'];
+$withdraw_balance =$row['withdraw_balance'];
 $userid =$row['ID'];
 $userrefferee =$row['reffereeid'];
 
@@ -47,22 +48,22 @@ if(isset($_POST["submit"])){
           $plan_returns = $plan_returns. ',' . $nextdate; 
     }
 
-    if($userbalance >= $usdamount){
+    if($withdraw_balance >= $usdamount){
       if($plan_max == ""){
         $query1 = mysqli_query($con, "INSERT INTO `fx_investment` (userid,plan_name,plan_min,plan_max,plan_roi,plan_roi_type,plan_duration,plan_returns,amount_earned,plan_status,created,endingdate,amountinvested) VALUES ('$userid','$plan_name','$plan_min','$plan_max','$plan_roi','$plan_roi_type','$plan_duration','$plan_returns','0','0','$datecreated','$endingdate','$usdamount')"); 
         
-          $newbalance = $userbalance - $usdamount;
+          $newbalance = $withdraw_balance - $usdamount;
           $sqlquery = "UPDATE fx_userprofile 
-          SET balance='$newbalance'
+          SET withdraw_balance='$newbalance'
           WHERE ID='$userid' " ;
           $sqlresult = mysqli_query($con,$sqlquery) ;
       }else{
         if($usdamount >= $plan_min && $usdamount <= $plan_max){
           $query1 = mysqli_query($con, "INSERT INTO `fx_investment` (userid,plan_name,plan_min,plan_max,plan_roi,plan_roi_type,plan_duration,plan_returns,amount_earned,plan_status,created,endingdate,amountinvested) VALUES ('$userid','$plan_name','$plan_min','$plan_max','$plan_roi','$plan_roi_type','$plan_duration','$plan_returns','0','0','$datecreated','$endingdate','$usdamount')"); 
 
-          $newbalance = $userbalance - $usdamount;
+          $newbalance = $withdraw_balance - $usdamount;
           $sqlquery = "UPDATE fx_userprofile 
-          SET balance='$newbalance'
+          SET withdraw_balance='$newbalance'
           WHERE ID='$userid' " ;
           $sqlresult = mysqli_query($con,$sqlquery) ;
 
@@ -82,7 +83,7 @@ if(isset($_POST["submit"])){
 $query = "SELECT * FROM `fx_userprofile` WHERE email='$useremail' ";
 $result = mysqli_query($con,$query) ;
 $row = mysqli_fetch_array($result);
-$userbalance =$row['balance'];
+$userbalance =$row['withdraw_balance'];
 $userid =$row['ID'];
 ?>
 <!-- Header -->
@@ -136,7 +137,7 @@ $userid =$row['ID'];
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <h3>Your balance is $<?=$userbalance?></h3>
+                    <h3>Your balance available for investing is $<?= number_format($withdraw_balance)?></h3>
                     <label style="font-size:20px;" class="form-control-label" for="input-username"
                       >Choose Plan</label
                     >

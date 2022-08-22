@@ -17,19 +17,28 @@ $firstname =$row['firstname'];
 $lastname =$row['lastname'];
 $useremail =$row['email'];
 $withdraw_balance =$row['withdraw_balance'];
+$eth =$row['eth'];
+$btc =$row['btc'];
+$usdt =$row['usdt'];
 
 
 //data to fill out the page
 if (isset($_POST['wallettype']))
 {
   $wallettype = $_POST['wallettype'];
+  $btc = $_POST["btc"];
+  $eth = $_POST["eth"];
+  $usdt = $_POST["usdt"];
 
   if($wallettype == 1){
     $walletname = "BTC";
+    $userwalletid = $btc;
   }elseif($wallettype == 2){
     $walletname = "ETH";
+    $userwalletid = $eth;
   }elseif($wallettype == 3){
     $walletname = "USDT";
+    $userwalletid = $usdt;
   }
 
 }
@@ -37,8 +46,7 @@ if (isset($_POST['wallettype']))
 if(isset($_POST["submit"])){
 
   $usdamount = $_POST["usdamount"];
-  $userwalletid = stripslashes($_POST['userwalletid']);
-  $userwalletid = mysqli_real_escape_string($con,$userwalletid);
+ 
   
   $created = date("Y/m/d");
   $status = 0;
@@ -107,14 +115,14 @@ if(isset($_POST["submit"])){
   }
 
   
-$sql4 = mysqli_query($con, "SELECT * FROM `fx_withdrawal` WHERE userid='$userid'");
+$sql4 = mysqli_query($con, "SELECT * FROM `fx_withdrawal` WHERE userid='$userid' order by ID desc");
 $rows = mysqli_num_rows($sql4) ;
 
 //Selecting current user 
 $query = "SELECT * FROM `fx_userprofile` WHERE email='$useremail' ";
 $result = mysqli_query($con,$query) ;
 $row = mysqli_fetch_array($result);
-$userbalance =$row['balance'];
+$withdraw_balance =$row['withdraw_balance'];
 
 ?>
 <!-- Header -->
@@ -210,18 +218,21 @@ $userbalance =$row['balance'];
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name"
-                      >Input Your Wallet ID</label
+                      >Your wallet id will be gotten from you wallet saved during signup</label
                     >
-                    <input
-                      name="userwalletid"
-                      type="text"
-                      id="input-first-name"
-                      class="form-control"
-                      placeholder="Wallet id"
-                    />
+                    <p>If you don't have any wallet set please click <a href='profile.php'>HERE>> </a>to update wallet id</p>
+                    <p>wallets available are</p>
+                    <ul>
+                      <li>BTC:<?= $btc?></li>
+                      <li>ETH:<?= $eth?></li>
+                      <li>USDT:<?= $usdt?></li>
+                    </ul>
                   </div>
                 </div>
               </div>
+              <input type="hidden" name="btc" value="<?= $btc?>">
+              <input type="hidden" name="eth" value="<?= $eth?>">
+              <input type="hidden" name="usdt" value="<?= $usdt?>">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="text-right">

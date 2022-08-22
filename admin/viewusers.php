@@ -70,7 +70,7 @@ $rows1 = mysqli_num_rows($sql1) ;
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="padding:0px;">
           <!-- Cryptocurrency Price Widget -->
           <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
           <div class="table-responsive">
@@ -200,6 +200,10 @@ $rows1 = mysqli_num_rows($sql1) ;
                               <form method='POST' action=''>
                                 <input type='hidden' value='$userid'  name='userid'/>
                                 <input class='dropdown-item btn btn-primary btn-sm' type='submit' onclick=\"return confirm('Are you sure you want to delete?');\" name='delete' value='Delete'></input>
+                              </form>
+                              <form method='POST' action='useredit.php'>
+                                <input type='hidden' value='$email'  name='useremail'/>
+                                <input class='dropdown-item btn btn-primary btn-sm' type='submit' value='view user'></input>
                               </form>
                             </div>
                           </div>

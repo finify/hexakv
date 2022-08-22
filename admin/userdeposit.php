@@ -145,106 +145,214 @@ if($deposit_type == 0){
     $depositstatus = 1 ;
     $depositid = $_POST['depositid'] ;
     $userid = $_POST['userid'] ;
+    $deposit_to = $_POST['deposit_to'] ;
     
-    
-    //Selecting current user 
-    $query = "SELECT * FROM `fx_userprofile` WHERE ID='$userid' ";
-    $result = mysqli_query($con,$query) ;
-    $row2 = mysqli_fetch_array($result);
-    $balance =$row2['balance'];
-    $firstname =$row2['firstname'];
-    $lastname =$row2['lastname'];
-    $email =$row2['email'];
-    $reffereeid =$row2['reffereeid'];
-    $refearned =$row2['refearned'];
-    
-    $newuserbalance = $balance + $usdamount;
-    
-    //Selecting current refer
-    $query11 = "SELECT * FROM `fx_userprofile` WHERE refcode='$reffereeid' ";
-    $result11 = mysqli_query($con,$query11) ;
-    $row11 = mysqli_fetch_array($result11);
-    $refereduserid =$row11['ID'];
-    $refuserbalance =$row11['balance'];
-    $refuserfirstname =$row11['firstname'];
-    $refuserlastname =$row11['lastname'];
-    $refuseremail =$row11['email'];
-    
-    $refearning = ($referral_commision / 100) * $usdamount;
-    $newrefuserbalance = $refuserbalance + $refearning;
-      $created = date("Y/m/d");
-
-
-
-
-      $sqlquery2 = "UPDATE fx_deposit 
-      SET amount='$usdamount', depositstatus ='1'
-      WHERE ID='$depositid' " ;
-      $sqlresult1 = mysqli_query($con,$sqlquery2) ;
-
-      $sqlquery2 = "UPDATE fx_investment 
-      SET plan_status ='0'
-      WHERE ID='$investmentid' " ;
-      $sqlresult2 = mysqli_query($con,$sqlquery2) ;
-
-
+    if($deposit_to == 1){ //send to withdraw balance
+      //Selecting current user 
+      $query = "SELECT * FROM `fx_userprofile` WHERE ID='$userid' ";
+      $result = mysqli_query($con,$query) ;
+      $row2 = mysqli_fetch_array($result);
+      $balance =$row2['balance'];
+      $firstname =$row2['firstname'];
+      $lastname =$row2['lastname'];
+      $email =$row2['email'];
+      $reffereeid =$row2['reffereeid'];
+      $refearned =$row2['refearned'];
+      $withdraw_balance =$row2['withdraw_balance'];
       
-    if($reffereeid === 0){
-        
-      }elseif($refearned === 1){
-          
-      }else{
-        $query22 = mysqli_query($con, "INSERT INTO fx_refearnings (userid,amount,fromuser,created) VALUES ('$refereduserid','$refearning','$userid','$created')");
-        $sqlquery11 = "UPDATE fx_userprofile 
-        SET balance='$newrefuserbalance'
-        WHERE ID='$refereduserid' " ;
-        $sqlresult11 = mysqli_query($con,$sqlquery11) ;
-        
-        $sqlquery21 = "UPDATE fx_userprofile 
-        SET refearned='1'
+      $newwithdrawbalance = $withdraw_balance + $usdamount;
+      
+      //Selecting current refer
+      $query11 = "SELECT * FROM `fx_userprofile` WHERE refcode='$reffereeid' ";
+      $result11 = mysqli_query($con,$query11) ;
+      $row11 = mysqli_fetch_array($result11);
+      $refereduserid =$row11['ID'];
+      $refuserbalance =$row11['balance'];
+      $refuserfirstname =$row11['firstname'];
+      $refuserlastname =$row11['lastname'];
+      $refuseremail =$row11['email'];
+      
+      
+      $refearning = ($referral_commision / 100) * $usdamount;
+      $newrefuserbalance = $refuserbalance + $refearning;
+        $created = date("Y/m/d");
+
+
+
+
+        $sqlquery2 = "UPDATE fx_deposit 
+        SET amount='$usdamount', depositstatus ='1'
+        WHERE ID='$depositid' " ;
+        $sqlresult1 = mysqli_query($con,$sqlquery2) ;
+
+        $sqlquery3 = "UPDATE fx_userprofile 
+        SET withdraw_balance='$newwithdrawbalance'
         WHERE ID='$userid' " ;
-        $sqlresult21 = mysqli_query($con,$sqlquery21) ;
+        $sqlresult3 = mysqli_query($con,$sqlquery3) ;
+
+        $sqlquery4 = "DELETE FROM fx_investment WHERE ID='$investmentid' " ;
+        $sqlresult4 = mysqli_query($con,$sqlquery4) ;
+
+
         
+      if($reffereeid === 0){
+          
+        }elseif($refearned === 1){
+            
+        }else{
+          $query22 = mysqli_query($con, "INSERT INTO fx_refearnings (userid,amount,fromuser,created) VALUES ('$refereduserid','$refearning','$userid','$created')");
+          $sqlquery11 = "UPDATE fx_userprofile 
+          SET balance='$newrefuserbalance'
+          WHERE ID='$refereduserid' " ;
+          $sqlresult11 = mysqli_query($con,$sqlquery11) ;
+          
+          $sqlquery21 = "UPDATE fx_userprofile 
+          SET refearned='1'
+          WHERE ID='$userid' " ;
+          $sqlresult21 = mysqli_query($con,$sqlquery21) ;
+          
 
-        //mail referee
-        $to1      = $refuseremail; 
+          //mail referee
+          $to1      = $refuseremail; 
 
-        $subject1 = 'Referral Earning'; 
+          $subject1 = 'Referral Earning'; 
 
-        $message1 = '<html><body>';
-        $message1 .= '<div style="background-color:#288FDD; text-align: center;color: white; font-family: Arial, Helvetica, sans-serif; padding-top:20px; padding-bottom:30px;">';
-        $message1 .= "<h1> Hi {$refuserfirstname} {$refuserlastname}</h1>";
-        $message1 .= "<h1> You earned a referral bonus of  $". $refearning ."</h1>";
-        $message1 .= '<p>login to your account dashboard to see all your referral earnings</p>';
-        $message1 .= '</div>';
-        $message1 .= '<div style="margin-top:40px;"><center>';
-        $message1 .= "<img src='{$sitelogo}' alt='{$sitename}' style='width:400px'>";
-        $message1 .= '</center></div>';
-        $message1 .= "</body></html>";
+          $message1 = '<html><body>';
+          $message1 .= '<div style="background-color:#288FDD; text-align: center;color: white; font-family: Arial, Helvetica, sans-serif; padding-top:20px; padding-bottom:30px;">';
+          $message1 .= "<h1> Hi {$refuserfirstname} {$refuserlastname}</h1>";
+          $message1 .= "<h1> You earned a referral bonus of  $". $refearning ."</h1>";
+          $message1 .= '<p>login to your account dashboard to see all your referral earnings</p>';
+          $message1 .= '</div>';
+          $message1 .= '<div style="margin-top:40px;"><center>';
+          $message1 .= "<img src='{$sitelogo}' alt='{$sitename}' style='width:400px'>";
+          $message1 .= '</center></div>';
+          $message1 .= "</body></html>";
 
-        $message1 = wordwrap($message1, 70, "\r\n");
+          $message1 = wordwrap($message1, 70, "\r\n");
 
-        mailto($to1, $subject1, $message1);  
+          mailto($to1, $subject1, $message1);  
 
-      }
+        }
 
-      //mail user deposit approval
-      $to      = $email; 
-      $subject = 'Deposit Approval'; 
+        //mail user deposit approval
+        $to      = $email; 
+        $subject = 'Deposit Approval'; 
 
-      $message = '<html><body>';
-      $message .= '<div style="background-color:#288FDD; text-align: center;color: white; font-family: Arial, Helvetica, sans-serif; padding-top:20px; padding-bottom:30px;">';
-      $message .= "<h1> Hi {$firstname} {$lastname}</h1>";
-      $message .= "<h1> Your Deposit of  $". $usdamount ." have been Approved and your wallet updated</h1>";
-      $message .= '<p>login to your account dashboard to start Investing</p>';
-      $message .= '</div>';
-      $message .= '<div style="margin-top:40px;"><center>';
-      $message .= "<img src='{$sitelogo}' alt='{$sitename}' style='width:400px'>";
-      $message .= '</center></div>';
-      $message .= "</body></html>";
+        $message = '<html><body>';
+        $message .= '<div style="background-color:#288FDD; text-align: center;color: white; font-family: Arial, Helvetica, sans-serif; padding-top:20px; padding-bottom:30px;">';
+        $message .= "<h1> Hi {$firstname} {$lastname}</h1>";
+        $message .= "<h1> Your Deposit of  $". $usdamount ." have been Approved and your Investment have started counting.</h1>";
+        $message .= '<p>login to your account dashboard to start Investing</p>';
+        $message .= '</div>';
+        $message .= '<div style="margin-top:40px;"><center>';
+        $message .= "<img src='{$sitelogo}' alt='{$sitename}' style='width:400px'>";
+        $message .= '</center></div>';
+        $message .= "</body></html>";
 
-      $message = wordwrap($message, 70, "\r\n");
-      mailto($to, $subject, $message);  
+        $message = wordwrap($message, 70, "\r\n");
+        mailto($to, $subject, $message); 
+
+    }else{ //start counting investment
+      //Selecting current user 
+      $query = "SELECT * FROM `fx_userprofile` WHERE ID='$userid' ";
+      $result = mysqli_query($con,$query) ;
+      $row2 = mysqli_fetch_array($result);
+      $balance =$row2['balance'];
+      $firstname =$row2['firstname'];
+      $lastname =$row2['lastname'];
+      $email =$row2['email'];
+      $reffereeid =$row2['reffereeid'];
+      $refearned =$row2['refearned'];
+      
+      $newuserbalance = $balance + $usdamount;
+      
+      //Selecting current refer
+      $query11 = "SELECT * FROM `fx_userprofile` WHERE refcode='$reffereeid' ";
+      $result11 = mysqli_query($con,$query11) ;
+      $row11 = mysqli_fetch_array($result11);
+      $refereduserid =$row11['ID'];
+      $refuserbalance =$row11['balance'];
+      $refuserfirstname =$row11['firstname'];
+      $refuserlastname =$row11['lastname'];
+      $refuseremail =$row11['email'];
+      
+      $refearning = ($referral_commision / 100) * $usdamount;
+      $newrefuserbalance = $refuserbalance + $refearning;
+        $created = date("Y/m/d");
+
+
+
+
+        $sqlquery2 = "UPDATE fx_deposit 
+        SET amount='$usdamount', depositstatus ='1'
+        WHERE ID='$depositid' " ;
+        $sqlresult1 = mysqli_query($con,$sqlquery2) ;
+
+        $sqlquery2 = "UPDATE fx_investment 
+        SET plan_status ='0'
+        WHERE ID='$investmentid' " ;
+        $sqlresult2 = mysqli_query($con,$sqlquery2) ;
+
+
+        
+      if($reffereeid === 0){
+          
+        }elseif($refearned === 1){
+            
+        }else{
+          $query22 = mysqli_query($con, "INSERT INTO fx_refearnings (userid,amount,fromuser,created) VALUES ('$refereduserid','$refearning','$userid','$created')");
+          $sqlquery11 = "UPDATE fx_userprofile 
+          SET balance='$newrefuserbalance'
+          WHERE ID='$refereduserid' " ;
+          $sqlresult11 = mysqli_query($con,$sqlquery11) ;
+          
+          $sqlquery21 = "UPDATE fx_userprofile 
+          SET refearned='1'
+          WHERE ID='$userid' " ;
+          $sqlresult21 = mysqli_query($con,$sqlquery21) ;
+          
+
+          //mail referee
+          $to1      = $refuseremail; 
+
+          $subject1 = 'Referral Earning'; 
+
+          $message1 = '<html><body>';
+          $message1 .= '<div style="background-color:#288FDD; text-align: center;color: white; font-family: Arial, Helvetica, sans-serif; padding-top:20px; padding-bottom:30px;">';
+          $message1 .= "<h1> Hi {$refuserfirstname} {$refuserlastname}</h1>";
+          $message1 .= "<h1> You earned a referral bonus of  $". $refearning ."</h1>";
+          $message1 .= '<p>login to your account dashboard to see all your referral earnings</p>';
+          $message1 .= '</div>';
+          $message1 .= '<div style="margin-top:40px;"><center>';
+          $message1 .= "<img src='{$sitelogo}' alt='{$sitename}' style='width:400px'>";
+          $message1 .= '</center></div>';
+          $message1 .= "</body></html>";
+
+          $message1 = wordwrap($message1, 70, "\r\n");
+
+          mailto($to1, $subject1, $message1);  
+
+        }
+
+        //mail user deposit approval
+        $to      = $email; 
+        $subject = 'Deposit Approval'; 
+
+        $message = '<html><body>';
+        $message .= '<div style="background-color:#288FDD; text-align: center;color: white; font-family: Arial, Helvetica, sans-serif; padding-top:20px; padding-bottom:30px;">';
+        $message .= "<h1> Hi {$firstname} {$lastname}</h1>";
+        $message .= "<h1> Your Deposit of  $". $usdamount ." have been Approved and your Investment have started counting.</h1>";
+        $message .= '<p>login to your account dashboard to start Investing</p>';
+        $message .= '</div>';
+        $message .= '<div style="margin-top:40px;"><center>';
+        $message .= "<img src='{$sitelogo}' alt='{$sitename}' style='width:400px'>";
+        $message .= '</center></div>';
+        $message .= "</body></html>";
+
+        $message = wordwrap($message, 70, "\r\n");
+        mailto($to, $subject, $message); 
+    }
+     
   }
 }
 
@@ -283,7 +391,7 @@ if($deposit_type == 0){
               
               if (isset($_POST['submit']))
                 {
-                  if($sqlresult1 && $sqlresult2){
+                  if($sqlresult1){
             echo "
             <div class='container'><div class='alert alert-success'>Approved Successfully</div></div>";
            }
@@ -298,6 +406,16 @@ if($deposit_type == 0){
               if($depositstatus == 1){
                 echo "<div class='container'><div class='alert alert-success'>Approved</div></div>";
               }else{
+                if($deposit_type == 1){
+                  $deposit_to = "<div class='row'>
+                  <select required name='deposit_to' class='custom-select' id='inputGroupSelect02'>
+                    <option value='1'>Sent to withdraw balance</option>
+                    <option value='2'>Start counting investment</option>
+                  </select>
+                  </div>";
+                }else{
+                  $deposit_to = "";
+                }
                 echo "
                 <form method='POST' action=''>
                 <div class='pl-lg-4'>
@@ -310,12 +428,10 @@ if($deposit_type == 0){
                 <input type='hidden' value='$usdamount'  name='usdamount'>
                 <input type='hidden' value='$investmentid'  name='investmentid'>
                   <div class'row'>
-                    <div class='col-lg-12'>
-                      <div class='form-group'>
-                        <input required disabled type='number' id='input-username' class='form-control' placeholder='amount' step='any' value='$usdamount' >
-                      </div>
-                    </div>
+                      <input required disabled type='number' id='input-username' class='form-control' placeholder='amount' step='any' value='$usdamount' >
+                   
                   </div>
+                  $deposit_to
                   <div class='row'>
                     <div class='col-lg-12'>
                       <div class='text-right'>

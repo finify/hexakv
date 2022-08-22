@@ -39,7 +39,7 @@ if($useractivestat == 0){
                             $sql = mysqli_query($con, "SELECT * FROM `fx_earnings` WHERE userid='$userid' AND plan='$plan_name' AND created='$dates' AND plan_id='$planid'");
                             $rows = mysqli_num_rows($sql) ;
                             if($rows < 1){//check if earnings have not be returned
-                                if($currentdate === $dates1){ //if date is current
+                                if($currentdate >= $dates1){ //if date is current
                                     $amountearned = ($plan_roi / 100)* $amountinvested;
 
                                     //insert to fx earnings
@@ -61,7 +61,7 @@ if($useractivestat == 0){
                     $rows = mysqli_num_rows($sql) ;
                     if($rows < 1){//check if earnings have not be returned
                         
-                        if($currentdate === $endingdate1){ //if date is current
+                        if($currentdate >= $endingdate1){ //if date is current
                             $amountearned = ($plan_roi / 100)* $amountinvested;
                             $totalamountearned = ($amountearned*$plan_duration) + $amountinvested;
 
@@ -90,7 +90,7 @@ if($useractivestat == 0){
                     $sql = mysqli_query($con, "SELECT * FROM `fx_total_earned` WHERE userid='$userid' AND plan='$plan_name' AND created='$endingdate' AND plan_id='$planid'");
                     $rows = mysqli_num_rows($sql) ;
                     if($rows < 1){//check if earnings have not be returned
-                        if($currentdate === $endingdate1){ //if date is current
+                        if($currentdate >= $endingdate1){ //if date is current
                             $amountearned = ($plan_roi / 100)* $amountinvested;
                             $totalamountearned = ($amountearned*$plan_duration) + $amountinvested;
 
