@@ -10,8 +10,8 @@ $sitenumber = "+234234324343";
 
 //Administrator
 $siteauthor = "kionvest";
-$site_support_email = "support@kionvest.com";
-$site_admin_email = "support@kionvest.com";
+$site_support_email = "admin@kionvest.com";
+$site_admin_email = "admin@kionvest.com";
 $location = "";
 
 $referral_commision = '10';

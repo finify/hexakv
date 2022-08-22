@@ -17,15 +17,15 @@ function mailto($to,$subject,$message){
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'ssl://smtp.titan.email';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'support@kionvest.com';                     //SMTP username
-        $mail->Password   = 'nhQdsKLW9j';                               //SMTP password
+        $mail->Username   = 'admin@kionvest.com';                     //SMTP username
+        $mail->Password   = '@zwiD6?uTef5Brs';                               //SMTP password
         $mail->SMTPSecure = 'SSL';            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     
         //Recipients
-        $mail->setFrom('support@kionvest.com', 'kionvest');
+        $mail->setFrom('admin@kionvest.com', 'kionvest');
         $mail->addAddress($to);               //Name is optional
-        $mail->addReplyTo('support@kionvest.com', 'kionvest');
+        $mail->addReplyTo('admin@kionvest.com', 'kionvest');
       
     
       
