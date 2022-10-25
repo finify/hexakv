@@ -83,7 +83,7 @@ if($deposit_type == 0){
         }else{
           $query22 = mysqli_query($con, "INSERT INTO fx_refearnings (userid,amount,fromuser,created) VALUES ('$refereduserid','$refearning','$userid','$created')");
           $sqlquery11 = "UPDATE fx_userprofile 
-          SET balance='$newrefuserbalance'
+          SET withdraw_balance='$newrefuserbalance'
           WHERE ID='$refereduserid' " ;
           $sqlresult11 = mysqli_query($con,$sqlquery11) ;
           
